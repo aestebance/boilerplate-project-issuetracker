@@ -4,6 +4,7 @@ let mongoose = require('mongoose');
 
 module.exports = function (app) {
 
+    mongoose.set('useFindAndModify', false);
     mongoose.connect(process.env.DB, {
         useNewUrlParser: true,
         useUnifiedTopology: true
@@ -91,7 +92,7 @@ module.exports = function (app) {
       let project = req.params.project;
       let updatedIssue = {};
       if (!req.body._id) {
-          res.json({
+          return res.json({
               error: 'missing _id'
           });
       }
@@ -100,8 +101,9 @@ module.exports = function (app) {
             updatedIssue[key] = req.body[key];
         }
       });
+
       if (Object.keys(updatedIssue).length < 2) {
-          res.json({
+          return res.json({
               error: 'no update field(s) sent',
               _id: req.body._id
           });
