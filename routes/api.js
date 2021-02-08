@@ -63,12 +63,7 @@ module.exports = function (app) {
 
     .post(function (req, res){
       let project = req.params.project;
-        if (!req.body.issue_title ||
-            req.body.issue_title === '' ||
-            !req.body.issue_text ||
-            req.body.issue_text === '' ||
-            !req.body.created_by ||
-            req.body.created_by === '') {
+        if (!req.body.issue_title || !req.body.issue_text || !req.body.created_by) {
             return res.json({
                 error: 'required field(s) missing'
             });
