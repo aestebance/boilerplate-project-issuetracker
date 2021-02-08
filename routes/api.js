@@ -90,7 +90,14 @@ module.exports = function (app) {
 
     .put(function (req, res){
       let project = req.params.project;
-      let updatedIssue = {};
+      let updatedIssue = {
+          issue_title: "",
+          issue_text: "",
+          created_by: "",
+          assigned_to: "",
+          status_text: "",
+          open: true,
+      };
       if (!req.body._id) {
           return res.json({
               error: 'missing _id'
@@ -102,12 +109,13 @@ module.exports = function (app) {
         }
       });
 
-      if (Object.keys(updatedIssue).length < 2) {
+      if (Object.keys(req.body).length < 2) {
           return res.json({
               error: 'no update field(s) sent',
               _id: req.body._id
           });
       }
+      updatedIssue['project'] = project;
       updatedIssue['updated_on'] = new Date().toUTCString();
       Issue.findByIdAndUpdate(
           req.body._id,
