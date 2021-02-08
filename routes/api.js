@@ -4,7 +4,7 @@ let mongoose = require('mongoose');
 
 module.exports = function (app) {
 
-    // mongoose.set('useFindAndModify', false);
+    mongoose.set('useFindAndModify', false);
     mongoose.connect(process.env.DB, {
         useNewUrlParser: true,
         useUnifiedTopology: true
