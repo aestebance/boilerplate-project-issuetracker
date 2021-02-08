@@ -4,7 +4,7 @@ let mongoose = require('mongoose');
 
 module.exports = function (app) {
 
-    mongoose.set('useFindAndModify', false);
+    // mongoose.set('useFindAndModify', false);
     mongoose.connect(process.env.DB, {
         useNewUrlParser: true,
         useUnifiedTopology: true
@@ -109,8 +109,8 @@ module.exports = function (app) {
           });
       }
       updatedIssue['updated_on'] = new Date().toUTCString();
-      Issue.findOneAndUpdate(
-          {_id: req.body._id},
+      Issue.findByIdAndUpdate(
+          req.body._id,
           updatedIssue,
           {new: true},
           (error, updatedIssue) => {
