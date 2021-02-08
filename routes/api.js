@@ -89,11 +89,41 @@ module.exports = function (app) {
 
     .put(function (req, res){
       let project = req.params.project;
+      let updatedIssue = {};
       if (!req.body._id) {
           res.json({
               error: 'missing _id'
           });
       }
+      Object.keys(req.body).forEach((key) => {
+        if (req.body[key] != '') {
+            updatedIssue[key] = req.body[key];
+        }
+      });
+      if (Object.keys(updatedIssue).length < 2) {
+          res.json({
+              error: 'no update field(s) sent',
+              _id: req.body._id
+          });
+      }
+      updatedIssue['updated_on'] = new Date().toUTCString();
+      Issue.findOneAndUpdate(
+          {_id: req.body._id},
+          updatedIssue,
+          {new: true},
+          (error, updatedIssue) => {
+              if (!error && updatedIssue) {
+                  return res.json({
+                      result: 'successfully updated',
+                      _id: req.body._id
+                  });
+              } else {
+                  return res.json({
+                      error: 'could not update',
+                      _id: req.body._id
+                  });
+              }
+          });
     })
 
     .delete(function (req, res){
