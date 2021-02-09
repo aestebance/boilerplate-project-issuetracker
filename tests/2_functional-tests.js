@@ -30,7 +30,6 @@ suite('Functional Tests', function() {
                    assert.equal(res.body.open, true);
                    assert.equal(res.body.project, 'test');
                    id1 = res.body._id;
-                   console.log("id 1 has been set as " + id1);
                    done();
                });
         });
@@ -52,7 +51,6 @@ suite('Functional Tests', function() {
                    assert.equal(res.body.open, true);
                    assert.equal(res.body.project, 'test');
                    id2 = res.body._id;
-                   console.log("id 2 has been set as " + id2);
                    done();
                });
        });
