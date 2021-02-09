@@ -9,8 +9,8 @@ let id1 = "";
 let id2 = "";
 
 suite('Functional Tests', function() {
-    suite('POST /api/issues/test => Testing POST method', function(){
-       test('Every fields filled in', function(done) {
+    suite('POST request to /api/issues/{project}', function(){
+       test('Create an issue with every field', function(done) {
            chai.request(server)
                .post('/api/issues/test')
                .send({
@@ -34,7 +34,7 @@ suite('Functional Tests', function() {
                    done();
                });
         });
-       test('Required fields only', function(done){
+       test('Create an issue with only required fields', function(done){
            chai.request(server)
                .post('/api/issues/test')
                .send({
@@ -57,7 +57,7 @@ suite('Functional Tests', function() {
                });
        });
 
-       test('Missing required fields', function(done){
+       test('Create an issue with missing required fields', function(done){
            chai.request(server)
                .post('/api/issues/test')
                .send({
@@ -70,8 +70,8 @@ suite('Functional Tests', function() {
        });
     });
 
-    suite('GET /api/issues/test => Testing GET method', function(){
-        test('Request all issues from project', function(done){
+    suite('GET request to /api/issues/{project}', function(){
+        test('View issues on a project', function(done){
             chai.request(server)
                 .get('/api/issues/test')
                 .query({})
@@ -91,7 +91,7 @@ suite('Functional Tests', function() {
                 });
         });
 
-        test('Request issues with one filter', function(done){
+        test('View issues on a project with one filter', function(done){
             chai.request(server)
                 .get('/api/issues/test')
                 .query({issue_title: 'Title'})
@@ -111,7 +111,7 @@ suite('Functional Tests', function() {
                 });
         });
 
-        test('Request issues with multiple filters', function(done){
+        test('View issues on a project with multiple filters', function(done){
             chai.request(server)
                 .get('/api/issues/test')
                 .query({
@@ -136,7 +136,7 @@ suite('Functional Tests', function() {
         });
     });
 
-    suite('PUT /api/issues/test => Testing PUT method',function() {
+    suite('PUT request to /api/issues/{project}',function() {
         test('Update one field on an issue', function(done){
             chai.request(server)
                 .put('/api/issues/test')
@@ -213,7 +213,7 @@ suite('Functional Tests', function() {
         });
     });
 
-    suite('DELETE /api/issues/test => Testing DELETE method',function() {
+    suite('DELETE request to /api/issues/{project}',function() {
         test('Delete an issue', function(done) {
             chai.request(server)
                 .delete('/api/issues/test')
