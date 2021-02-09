@@ -116,7 +116,9 @@ module.exports = function (app) {
           });
       }
       updatedIssue['project'] = project;
-      updatedIssue['updated_on'] = new Date().toUTCString();
+      let newDate = new Date();
+      newDate.setDate(newDate.getDate() + 1);
+      updatedIssue['updated_on'] = newDate.toUTCString();
       Issue.findByIdAndUpdate(
           req.body._id,
           updatedIssue,
